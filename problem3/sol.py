@@ -14,4 +14,4 @@ def sol(n):
 
 if __name__ == "__main__":
     print(f"{sol(13195)}")
-    print(f"{sol(600851475143)}")
+    print(f"{sol(600_851_475_143)}")
