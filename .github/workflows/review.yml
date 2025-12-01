@@ -12,6 +12,10 @@ jobs:
   code_review:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      pull-requests: write
+
     # 確保只有在必要的檔案被修改時才繼續
     if: github.event.pull_request.head.repo.full_name == github.repository
 
