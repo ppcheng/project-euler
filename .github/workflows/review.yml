@@ -1,0 +1,52 @@
+name: AI Code Review Agent
+
+# 當有 Pull Request 開啟、同步（有新 Commit）或重新開啟時觸發
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    # 限制只在特定的檔案類型變更時運行，節省資源
+    paths:
+      - 'problem*/sol.py'
+
+jobs:
+  code_review:
+    runs-on: ubuntu-latest
+
+    # 確保只有在必要的檔案被修改時才繼續
+    if: github.event.pull_request.head.repo.full_name == github.repository
+
+    steps:
+      - name: 📝 Checkout Code
+        # 使用 fetch-depth: 0 以確保可以取得完整的 Git 歷史（例如用於 diff）
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: 📦 Install dependencies
+        run: |
+          pip install google-generativeai PyGithub
+
+      - name: 🤖 Perform Code Review
+        # 設置環境变量
+        env:
+          # GEMINI的 AI 金鑰
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # GitHub Actions 自動提供的 Token，用於讀取 PR 內容和發佈評論
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PR 編號（腳本需要這個來識別要讀取的 PR）
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          # 告訴 Python 腳本這是在 Actions 環境中運行，這樣它就會使用環境變數而非命令行參數
+          GITHUB_ACTIONS: "true"
+          # 倉庫名稱:  owner/repo
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+        # 運行Python 腳本
+        run: |
+          echo "Running review script for PR #$PR_NUMBER in $GITHUB_REPOSITORY"
+          python scripts/review_agent.py
