@@ -11,7 +11,7 @@ generate: ## Generate problem{id} with starter files (usage: make generate id=3)
 	mkdir -p "$$dir"; \
 	touch "$$dir/__init__.py"; \
 	echo "# Problem $(id)" > "$$dir/description.md"; \
-	printf '%s\n' '"""Solution for Problem $(id)."""' 'from utils import timer' '' '' \
+	printf '%s\n' '"""Solution for Problem $(id)."""' '' 'from utils import timer' '' '' \
 	'@timer' 'def sol():' '    # TODO: implement solution' '    pass' '' '' \
 	'if __name__ == "__main__":' '    print(sol())' > "$$dir/sol.py"; \
 	echo "Problem directory structure created at $$dir."
