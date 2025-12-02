@@ -1,3 +1,5 @@
+"""Solution for Problem 1."""
+
 from utils import timer
 
 
