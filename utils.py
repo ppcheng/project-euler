@@ -46,7 +46,16 @@ def find_all_factors(n):
 
 
 def is_prime(n):
-    for i in range(2, n):
-        if n % i == 0:
+    if n <= 1:
+        return False
+
+    if n in (2, 3):
+        return True
+
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+
+    for i in range(5, int(n**0.5) + 1, 6):
+        if n % i == 0 or n % (i + 2) == 0:
             return False
     return True
