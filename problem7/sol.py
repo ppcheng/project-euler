@@ -5,14 +5,16 @@ from utils import is_prime, timer
 
 @timer
 def sol(n):
-    i = 2
-    num = 5
-    while i < n:
+    if n == 1:
+        return 2
+    count = 1
+    num = 3
+    while count < n:
         if is_prime(num):
-            i += 1
-            if i == n:
+            count += 1
+            if count == n:
                 return num
-        num += 1
+        num += 2
 
 
 if __name__ == "__main__":
