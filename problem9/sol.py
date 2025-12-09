@@ -12,7 +12,7 @@ def sol(total):
     for a in range(1, total // 3):
         numerator = total * (total - 2 * a)
         denominator = 2 * (total - a)
-        if denominator != 0 and numerator % denominator == 0:
+        if numerator % denominator == 0:
             b = numerator // denominator
             c = total - b - a
             if a < b < c:
