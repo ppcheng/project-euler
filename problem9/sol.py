@@ -15,7 +15,7 @@ def sol(total):
         if numerator % denominator == 0:
             b = numerator // denominator
             c = total - b - a
-            if a < b < c:
+            if a < b:
                 return a * b * c
     return None
 
