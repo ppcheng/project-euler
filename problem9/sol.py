@@ -17,7 +17,7 @@ def sol(total):
             c = total - b - a
             if a < b < c:
                 return a * b * c
-        return None
+    return None
 
 
 if __name__ == "__main__":
