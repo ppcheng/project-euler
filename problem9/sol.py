@@ -10,10 +10,10 @@ def sol(total):
     # c = 1000 - b - a
     # a < b < c and a + b + c = 1000 => a < 1000 / 3
     for a in range(1, total // 3):
-        denominator = total * (total - 2 * a)
-        numerator = 2 * (total - a)
-        if numerator != 0 and denominator % numerator == 0:
-            b = denominator // numerator
+        numerator = total * (total - 2 * a)
+        denominator = 2 * (total - a)
+        if denominator != 0 and numerator % denominator == 0:
+            b = numerator // denominator
             c = total - b - a
             if a < b < c:
                 return a * b * c
