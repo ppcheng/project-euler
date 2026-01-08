@@ -50,3 +50,13 @@ def is_prime(n):
         if n % i == 0:
             return False
     return True
+
+
+# Compute the sum of arithmetic series from 1 to n
+def sum_of_natural_number(n):
+    return n * (n + 1) // 2
+
+
+# Computer the sum of squares, i.e 1^2+2^2+...+n^2
+def sum_of_squares(n):
+    return n * (n + 1) * (2 * n + 1) // 6
