@@ -44,7 +44,7 @@ def sol(grid, window):
 
     for i in range(nr):
         for j in range(nc):
-            down_product = get_product_in_direction(grid, i, j, -1, 0, nr, nc, window)
+            down_product = get_product_in_direction(grid, i, j, 1, 0, nr, nc, window)
             right_product = get_product_in_direction(grid, i, j, 0, 1, nr, nc, window)
             down_left_product = get_product_in_direction(grid, i, j, 1, -1, nr, nc, window)
             down_right_product = get_product_in_direction(grid, i, j, 1, 1, nr, nc, window)
