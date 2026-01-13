@@ -26,39 +26,13 @@ GRID = [
 ]
 
 
-def get_bottom_product(grid, row, col, nr, nc, window):
-    product = grid[row][col]
-    for i in range(1, window):
-        if row + i > nr - 1:
+def get_product_in_direction(grid, row, col, dr, dc, nr, nc, window):
+    product = 1
+    for i in range(window):
+        cur_r, cur_c = row + dr * i, col + dc * i
+        if not (0 <= cur_r <= nr - 1 and 0 <= cur_c <= nc - 1):
             return 0
-        product *= grid[row + i][col]
-    return product
-
-
-def get_right_product(grid, row, col, nr, nc, window):
-    product = grid[row][col]
-    for i in range(1, window):
-        if col + i > nc - 1:
-            return 0
-        product *= int(grid[row][col + i])
-    return product
-
-
-def get_bottom_left_product(grid, row, col, nr, nc, window):
-    product = grid[row][col]
-    for i in range(1, window):
-        if row + i > nr - 1 or col - i < 0:
-            return 0
-        product *= int(grid[row + i][col - i])
-    return product
-
-
-def get_bottom_right_product(grid, row, col, nr, nc, window):
-    product = grid[row][col]
-    for i in range(1, window):
-        if row + i > nr - 1 or col + i > nc - 1:
-            return 0
-        product *= int(grid[row + i][col + i])
+        product *= grid[cur_r][cur_c]
     return product
 
 
@@ -70,11 +44,11 @@ def sol(grid, window):
 
     for i in range(nr):
         for j in range(nc):
-            bottom_product = get_bottom_product(grid, i, j, nr, nc, window)
-            right_product = get_right_product(grid, i, j, nr, nc, window)
-            bottom_left_product = get_bottom_left_product(grid, i, j, nr, nc, window)
-            bottom_right_product = get_bottom_right_product(grid, i, j, nr, nc, window)
-            max_product = max(max_product, bottom_product, right_product, bottom_left_product, bottom_right_product)
+            down_product = get_product_in_direction(grid, i, j, -1, 0, nr, nc, window)
+            right_product = get_product_in_direction(grid, i, j, 0, 1, nr, nc, window)
+            down_left_product = get_product_in_direction(grid, i, j, 1, -1, nr, nc, window)
+            down_right_product = get_product_in_direction(grid, i, j, 1, 1, nr, nc, window)
+            max_product = max(max_product, down_product, right_product, down_left_product, down_right_product)
     return max_product
 
 
